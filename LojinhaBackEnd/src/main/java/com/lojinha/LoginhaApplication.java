@@ -1,4 +1,4 @@
-package com.example.loginha;
+package com.lojinha;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
