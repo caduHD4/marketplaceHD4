@@ -17,8 +17,8 @@ public class Permissao {
     private String nome;
 
     @Column()
-    private Date dataCriacao = new Date();
+    private Date dataCriacao;
 
     @Column()
-    private Date dataAtualizacao = new Date();
+    private Date dataAtualizacao;
 }

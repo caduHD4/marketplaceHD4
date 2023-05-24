@@ -32,8 +32,8 @@ public class Pessoa {
     private String CEP;
 
     @Column()
-    private Date dataCriacao = new Date();
+    private Date dataCriacao;
 
     @Column()
-    private Date dataAtualizacao = new Date();
+    private Date dataAtualizacao;
 }

@@ -18,11 +18,12 @@ public class Cidade {
     private String nome;
 
     @Column()
-    private Date dataCriacao = new Date();
+    private Date dataCriacao;
 
     @Column()
-    private Date dataAtualizacao = new Date();
+    private Date dataAtualizacao;
 
     @ManyToOne(optional = false)
     private Estado estado;
+    
 }

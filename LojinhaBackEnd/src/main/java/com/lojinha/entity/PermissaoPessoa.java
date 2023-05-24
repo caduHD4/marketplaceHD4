@@ -20,9 +20,9 @@ public class PermissaoPessoa {
     private Permissao permissao;
 
     @Column()
-    private Date creationDate;
+    private Date dataCriacao;
 
     @Column()
-    private Date updateDate;
+    private Date dataAtualizacao;
     
 }
