@@ -3,6 +3,7 @@ package com.lojinha.service;
 import com.lojinha.dto.EstadoDto;
 import com.lojinha.entity.Estado;
 import com.lojinha.repository.EstadoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 @Service
 public class EstadoService {
@@ -19,10 +21,12 @@ public class EstadoService {
 
     public void cadastrar(EstadoDto estadoDto) {
         Estado estado = new Estado();
+        estadoDto.setDataCriacao(new Date());
         estado.setSigla(estadoDto.getSigla());
         estado.setNome(estadoDto.getNome());
         estadoRepository.save(estado);
     }
+
 
     public List<Estado> listarTodos() {
         return estadoRepository.findAll();
@@ -34,7 +38,7 @@ public class EstadoService {
             Optional<Estado> EstadoOptional = estadoRepository.findById(id);
 
             if(EstadoOptional.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhuma Estado foi encontrada");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum Estado foi encontrado");
             }
 
             return EstadoOptional.get();
@@ -66,6 +70,7 @@ public class EstadoService {
             Estado estado = new Estado();
             estado.setSigla(estadoDto.getSigla());
             estado.setNome(estadoDto.getNome());
+            estado.setDataCriacao(new Date());
             estadoRepository.save(estado);
         } catch (ResponseStatusException e) {
             throw new ResponseStatusException(e.getStatusCode(), e.getReason());
