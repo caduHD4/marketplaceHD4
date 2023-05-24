@@ -13,6 +13,4 @@ public class EstadoDto {
     private Long id;
     private String nome;
     private String sigla;
-    public void setDataCriacao(Date date) {
-    }
 }

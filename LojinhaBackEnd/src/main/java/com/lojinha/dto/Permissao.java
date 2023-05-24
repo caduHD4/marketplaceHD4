@@ -8,12 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class PessoaDto {
+public class Permissao {
     private Long id;
     private String nome;
-    private String CPF;
-    private String email;
-    private String senha;
-    private String endereco;
-    private String CEP;
 }

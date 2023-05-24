@@ -21,7 +21,6 @@ public class EstadoService {
 
     public void cadastrar(EstadoDto estadoDto) {
         Estado estado = new Estado();
-        estadoDto.setDataCriacao(new Date());
         estado.setSigla(estadoDto.getSigla());
         estado.setNome(estadoDto.getNome());
         estadoRepository.save(estado);
