@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/estado")
+@RequestMapping("/estado")
 public class EstadoController {
 
     @Autowired

@@ -1,6 +1,5 @@
 package com.lojinha.dto;
 
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
