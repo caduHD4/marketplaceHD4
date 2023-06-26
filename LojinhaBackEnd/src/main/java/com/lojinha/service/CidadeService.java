@@ -33,7 +33,7 @@ public class CidadeService {
     private CidadeRepository cidadeRepository;
     private static EstadoService estadoService;
 
-    public List<Cidade> buscarPorId() {
+     public List<Cidade> buscaTodos() {
         return cidadeRepository.findAll();
     }
 
