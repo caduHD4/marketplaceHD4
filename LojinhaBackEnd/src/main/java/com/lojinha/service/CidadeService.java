@@ -1,9 +1,21 @@
 package com.lojinha.service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.NoSuchElementException;
+
 import com.lojinha.dto.CidadeDto;
 import com.lojinha.entity.Cidade;
-import com.lojinha.entity.Estado;
+import com.lojinha.repository.EstadoRepository;
 import com.lojinha.repository.CidadeRepository;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,86 +30,66 @@ import java.util.Optional;
 public class CidadeService {
 
     @Autowired
-    CidadeRepository cidadeRepository;
+    private CidadeRepository cidadeRepository;
+    private static EstadoService estadoService;
 
-    public void cadastrar(CidadeDto cidadeDto) {
-        Cidade cidade = new Cidade();
-        Estado estado = new Estado();
-        cidade.setNome(cidadeDto.getNome());
-        estado.setId(cidadeDto.getEstadoDto().getId());
-        cidade.setEstado(estado);
-        cidadeRepository.save(cidade);
-    }
-
-    public List<Cidade> listarTodos() {
-        return cidadeRepository.findAll();
+    public List<Cidade> buscarTodos() {
+        return cidadeRepository.BuscarTodos();
     }
 
     public Cidade buscarPorId(Long id) {
-
-        try {
-            Optional<Cidade> cidadeOptional = cidadeRepository.findById(id);
-
-            if(cidadeOptional.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhuma cidade foi encontrada");
-            }
-
-            return cidadeOptional.get();
-
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
-        }
+        return cidadeRepository.findById(id).get();
     }
 
-    public List<Cidade> buscarPorNome(String nome) {
-
-        try {
-            List<Cidade> cidadeList = cidadeRepository.findByNomeContainingIgnoreCase(nome);
-
-            if(cidadeList.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhuma cidade foi encontrada");
-            }
-
-            return cidadeList;
-
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
-        }
+    public Cidade cadastrar(Cidade cidade) {
+        cidade.setCreationDate(new Date());
+        Cidade newCidade = cidadeRepository.saveAndFlush(cidade);
+        return newCidade;
     }
 
-    public void atualizar(CidadeDto cidadeDto) {
-        try {
-            validarAtualizacaoCidade(cidadeDto);
-            Cidade cidade = new Cidade();
-            Estado estado = new Estado();
-            cidade.setId(cidadeDto.getId());
-            cidade.setNome(cidadeDto.getNome());
-            estado.setId(cidadeDto.getEstadoDto().getId());
-            cidade.setEstado(estado);
-            cidadeRepository.save(cidade);
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
-        }
+    public Cidade atualizar(Cidade cidade) {
+        cidade.setUpdateDate(new Date());
+        return cidadeRepository.saveAndFlush(cidade);
     }
 
     public void excluir(Long id) {
-        Cidade cidade = new Cidade();
-        cidade.setId(id);
+        Cidade cidade = cidadeRepository.buscarPorId(id)
+                .orElseThrow(() -> new NoSuchElementException("Cidade não encontrada."));
         cidadeRepository.delete(cidade);
+
     }
 
-    private void validarAtualizacaoCidade(CidadeDto cidadeDto) throws ResponseStatusException {
+    public void salvarCSV(MultipartFile file) {
+
         try {
+            BufferedReader fileReader = new BufferedReader(new
+                    InputStreamReader(file.getInputStream(), "UTF-8"));
+            CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT);
 
-            if(cidadeDto == null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Informe uma cidade para atualizar");
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+
+            ArrayList<CidadeDto> cities = new ArrayList<>();
+
+            Cidade cidade = new Cidade();
+
+            for (CSVRecord csvRecord : csvRecords) {
+                CidadeDto cidadeDto = new CidadeDto(
+                        Long.parseLong(csvRecord.get("id")),
+                        csvRecord.get("nome"),
+                        Long.parseLong(csvRecord.get("estado_id"))
+                );
             }
 
-            if(cidadeDto.getId() == null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Informe o id da cidade para atualizar");
+            for(CidadeDto cidadeDto : cities){
+                cidade.setId(cidadeDto.getId());
+                cidade.setNome(cidadeDto.getNome());
+                cidade.setEstado(estadoService.buscarPorId(cidadeDto.getEstadoId()));
+                cadastrar(cidade);
             }
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
+
 }

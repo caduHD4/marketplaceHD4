@@ -14,31 +14,31 @@ import com.lojinha.repository.PessoaRepository;
 public class PessoaService {
 
     @Autowired
-    private PessoaRepository PessoaRepository;
+    private PessoaRepository pessoaRepository;
 
     public List<Pessoa> findAll() {
-        return PessoaRepository.findAll();
+        return pessoaRepository.findAll();
     }
 
     public Pessoa findById(Long id) {
-        return PessoaRepository.findById(id).get();
+        return pessoaRepository.findById(id).get();
     }
 
     public Pessoa insert(Pessoa pessoa) {
-        pessoa.setDataCriacao(new Date());
-        Pessoa newPessoa = PessoaRepository.saveAndFlush(pessoa);
+        pessoa.setCreationDate(new Date());
+        Pessoa newPessoa = pessoaRepository.saveAndFlush(pessoa);
         return newPessoa;
     }
 
     public Pessoa update(Pessoa pessoa) {
-        pessoa.setDataAtualizacao(new Date());
-        return PessoaRepository.saveAndFlush(pessoa);
+        pessoa.setUpdateDate(new Date());
+        return pessoaRepository.saveAndFlush(pessoa);
     }
 
     public void delete(Long id) {
-        Pessoa pessoa = PessoaRepository.findById(id)
+        Pessoa pessoa = pessoaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Pessoa not found."));
-        PessoaRepository.delete(pessoa);
+        pessoaRepository.delete(pessoa);
 
     }
 

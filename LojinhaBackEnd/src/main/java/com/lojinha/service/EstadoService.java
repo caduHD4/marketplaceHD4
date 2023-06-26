@@ -1,99 +1,45 @@
 package com.lojinha.service;
 
-import com.lojinha.dto.EstadoDto;
-import com.lojinha.entity.Estado;
-import com.lojinha.repository.EstadoRepository;
+import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Date;
+import com.lojinha.entity.Estado;
+import com.lojinha.repository.EstadoRepository;
 
 @Service
 public class EstadoService {
 
     @Autowired
-    EstadoRepository estadoRepository;
+    private EstadoRepository estadoRepository;
 
-    public void cadastrar(EstadoDto estadoDto) {
-        Estado estado = new Estado();
-        estado.setSigla(estadoDto.getSigla());
-        estado.setNome(estadoDto.getNome());
-        estadoRepository.save(estado);
-    }
-
-
-    public List<Estado> listarTodos() {
+    public List<Estado> findAll() {
         return estadoRepository.findAll();
     }
 
-    public Estado buscarPorId(Long id) {
-
-        try {
-            Optional<Estado> EstadoOptional = estadoRepository.findById(id);
-
-            if(EstadoOptional.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum Estado foi encontrado");
-            }
-
-            return EstadoOptional.get();
-
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
-        }
+    public Estado findById(Long id) {
+        return estadoRepository.findById(id).get();
     }
 
-    public List<Estado> buscarPorNome(String nome) {
-
-        try {
-            List<Estado> EstadoList = estadoRepository.findByNomeContainingIgnoreCase(nome);
-
-            if(EstadoList.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhuma Estado foi encontrada");
-            }
-
-            return EstadoList;
-
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
-        }
+    public Estado insert(Estado estado) {
+        estado.setCreationDate(new Date());
+        Estado newEstado = estadoRepository.saveAndFlush(estado);
+        return newEstado;
     }
 
-    public void atualizar(EstadoDto estadoDto) {
-        try {
-            validarAtualizacaoEstado(estadoDto);
-            Estado estado = new Estado();
-            estado.setSigla(estadoDto.getSigla());
-            estado.setNome(estadoDto.getNome());
-            estado.setDataCriacao(new Date());
-            estadoRepository.save(estado);
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
-        }
+    public Estado update(Estado estado) {
+        estado.setUpdateDate(new Date());
+        return estadoRepository.saveAndFlush(estado);
     }
 
-    public void excluir(Long id) {
-        Estado estado = new Estado();
-        estado.setId(id);
+    public void delete(Long id) {
+        Estado estado = estadoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Estado not found."));
         estadoRepository.delete(estado);
+
     }
 
-    private void validarAtualizacaoEstado(EstadoDto estadoDto) throws ResponseStatusException {
-        try {
-
-            if(estadoDto == null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Informe um estado para atualizar");
-            }
-
-            if(estadoDto.getId() == null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Informe o id do estado para atualizar");
-            }
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getReason());
-        }
-    }
 }

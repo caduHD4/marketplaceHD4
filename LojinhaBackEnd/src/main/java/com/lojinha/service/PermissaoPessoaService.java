@@ -14,31 +14,31 @@ import com.lojinha.repository.PermissaoPessoaRepository;
 public class PermissaoPessoaService {
 
     @Autowired
-    private PermissaoPessoaRepository PermissaoPessoaRepository;
+    private PermissaoPessoaRepository permissaoPessoaRepository;
 
     public List<PermissaoPessoa> findAll() {
-        return PermissaoPessoaRepository.findAll();
+        return permissaoPessoaRepository.findAll();
     }
 
     public PermissaoPessoa findById(Long id) {
-        return PermissaoPessoaRepository.findById(id).get();
+        return permissaoPessoaRepository.findById(id).get();
     }
 
-    public PermissaoPessoa insert(PermissaoPessoa pessoa) {
-        pessoa.setDataCriacao(new Date());
-        PermissaoPessoa newPessoa = PermissaoPessoaRepository.saveAndFlush(pessoa);
-        return newPessoa;
+    public PermissaoPessoa insert(PermissaoPessoa permissaoPessoa) {
+        permissaoPessoa.setCreationDate(new Date());
+        PermissaoPessoa newPermissaoPessoa = permissaoPessoaRepository.saveAndFlush(permissaoPessoa);
+        return newPermissaoPessoa;
     }
 
-    public PermissaoPessoa update(PermissaoPessoa pessoa) {
-        pessoa.setDataAtualizacao(new Date());
-        return PermissaoPessoaRepository.saveAndFlush(pessoa);
+    public PermissaoPessoa update(PermissaoPessoa permissaoPessoa) {
+        permissaoPessoa.setUpdateDate(new Date());
+        return permissaoPessoaRepository.saveAndFlush(permissaoPessoa);
     }
 
     public void delete(Long id) {
-        PermissaoPessoa pessoa = PermissaoPessoaRepository.findById(id)
+        PermissaoPessoa permissaoPessoa = permissaoPessoaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("PermissaoPessoa not found."));
-        PermissaoPessoaRepository.delete(pessoa);
+        permissaoPessoaRepository.delete(permissaoPessoa);
 
     }
 

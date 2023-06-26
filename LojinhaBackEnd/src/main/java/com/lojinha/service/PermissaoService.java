@@ -14,31 +14,31 @@ import com.lojinha.repository.PermissaoRepository;
 public class PermissaoService {
 
     @Autowired
-    private PermissaoRepository PermissaoRepository;
+    private PermissaoRepository permissaoRepository;
 
     public List<Permissao> findAll() {
-        return PermissaoRepository.findAll();
+        return permissaoRepository.findAll();
     }
 
     public Permissao findById(Long id) {
-        return PermissaoRepository.findById(id).get();
+        return permissaoRepository.findById(id).get();
     }
 
-    public Permissao insert(Permissao pessoa) {
-        pessoa.setDataCriacao(new Date());
-        Permissao newPessoa = PermissaoRepository.saveAndFlush(pessoa);
-        return newPessoa;
+    public Permissao insert(Permissao permissao) {
+        permissao.setCreationDate(new Date());
+        Permissao newPermissao = permissaoRepository.saveAndFlush(permissao);
+        return newPermissao;
     }
 
-    public Permissao update(Permissao pessoa) {
-        pessoa.setDataAtualizacao(new Date());
-        return PermissaoRepository.saveAndFlush(pessoa);
+    public Permissao update(Permissao permissao) {
+        permissao.setUpdateDate(new Date());
+        return permissaoRepository.saveAndFlush(permissao);
     }
 
     public void delete(Long id) {
-        Permissao pessoa = PermissaoRepository.findById(id)
+        Permissao permissao = permissaoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Permissao not found."));
-        PermissaoRepository.delete(pessoa);
+        permissaoRepository.delete(permissao);
 
     }
 
