@@ -83,7 +83,7 @@ public class CidadeService {
             for(CidadeDto cidadeDto : cities){
                 cidade.setId(cidadeDto.getId());
                 cidade.setNome(cidadeDto.getNome());
-                cidade.setEstado(estadoService.buscarPorId(cidadeDto.getEstadoId()));
+                cidade.setEstado(estadoService.BuscarPorId(cidadeDto.getEstadoId()));
                 cadastrar(cidade);
             }
 

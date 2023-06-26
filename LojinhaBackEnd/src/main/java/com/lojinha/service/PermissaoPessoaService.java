@@ -16,26 +16,26 @@ public class PermissaoPessoaService {
     @Autowired
     private PermissaoPessoaRepository permissaoPessoaRepository;
 
-    public List<PermissaoPessoa> findAll() {
+    public List<PermissaoPessoa> buscarTodos() {
         return permissaoPessoaRepository.findAll();
     }
 
-    public PermissaoPessoa findById(Long id) {
+    public PermissaoPessoa buscarPorId(Long id) {
         return permissaoPessoaRepository.findById(id).get();
     }
 
-    public PermissaoPessoa insert(PermissaoPessoa permissaoPessoa) {
+    public PermissaoPessoa cadastrar(PermissaoPessoa permissaoPessoa) {
         permissaoPessoa.setDataCriacao(new Date());
         PermissaoPessoa newPermissaoPessoa = permissaoPessoaRepository.saveAndFlush(permissaoPessoa);
         return newPermissaoPessoa;
     }
 
-    public PermissaoPessoa update(PermissaoPessoa permissaoPessoa) {
+    public PermissaoPessoa atualizar(PermissaoPessoa permissaoPessoa) {
         permissaoPessoa.setDataAtualizacao(new Date());
         return permissaoPessoaRepository.saveAndFlush(permissaoPessoa);
     }
 
-    public void delete(Long id) {
+    public void excluir(Long id) {
         PermissaoPessoa permissaoPessoa = permissaoPessoaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("PermissaoPessoa not found."));
         permissaoPessoaRepository.delete(permissaoPessoa);

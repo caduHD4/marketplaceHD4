@@ -16,26 +16,26 @@ public class EstadoService {
     @Autowired
     private EstadoRepository estadoRepository;
 
-    public List<Estado> findAll() {
+    public List<Estado> bucarTodos() {
         return estadoRepository.findAll();
     }
 
-    public Estado findById(Long id) {
+    public Estado BuscarPorId(Long id) {
         return estadoRepository.findById(id).get();
     }
 
-    public Estado insert(Estado estado) {
+    public Estado cadastrar(Estado estado) {
         estado.setDataCriacao(new Date());
         Estado newEstado = estadoRepository.saveAndFlush(estado);
         return newEstado;
     }
 
-    public Estado update(Estado estado) {
+    public Estado atualizar(Estado estado) {
         estado.setDataAtualizacao(new Date());
         return estadoRepository.saveAndFlush(estado);
     }
 
-    public void delete(Long id) {
+    public void excluir(Long id) {
         Estado estado = estadoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Estado not found."));
         estadoRepository.delete(estado);

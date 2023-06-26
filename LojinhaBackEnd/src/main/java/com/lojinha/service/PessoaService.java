@@ -16,26 +16,26 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public List<Pessoa> findAll() {
+    public List<Pessoa> buscarTodos() {
         return pessoaRepository.findAll();
     }
 
-    public Pessoa findById(Long id) {
+    public Pessoa buscarPorId(Long id) {
         return pessoaRepository.findById(id).get();
     }
 
-    public Pessoa insert(Pessoa pessoa) {
+    public Pessoa cadastrar(Pessoa pessoa) {
         pessoa.setDataCriacao(new Date());
         Pessoa newPessoa = pessoaRepository.saveAndFlush(pessoa);
         return newPessoa;
     }
 
-    public Pessoa update(Pessoa pessoa) {
+    public Pessoa atualizar(Pessoa pessoa) {
         pessoa.setDataAtualizacao(new Date());
         return pessoaRepository.saveAndFlush(pessoa);
     }
 
-    public void delete(Long id) {
+    public void excluir(Long id) {
         Pessoa pessoa = pessoaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Pessoa not found."));
         pessoaRepository.delete(pessoa);

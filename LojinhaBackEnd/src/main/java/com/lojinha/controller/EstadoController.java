@@ -1,6 +1,5 @@
 package com.lojinha.controller;
 
-import com.lojinha.dto.EstadoDto;
 import com.lojinha.entity.Estado;
 import com.lojinha.service.EstadoService;
 
@@ -21,39 +20,43 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/estado")
+@RequestMapping("/api/estado")
+@CrossOrigin
 public class EstadoController {
 
     @Autowired
     private EstadoService estadoService;
 
     @GetMapping("/")
-    public List<Estado> listarTodos() {
-        return estadoService.listarTodos();
+    public List<Estado> buscarTodos() {
+        return estadoService.bucarTodos();
     }
 
     @PostMapping("/")
-    public void cadastrar(@RequestBody EstadoDto estadoDto) {
-        estadoService.cadastrar(estadoDto);
+    public Estado cadastrar(@RequestBody Estado estado) {
+        return estadoService.cadastrar(estado);
     }
 
-    @PutMapping()
-    public void atualizar(@RequestBody EstadoDto estadoDto) {
-        estadoService.atualizar(estadoDto);
+    @PutMapping("/")
+    public Estado atualizar(@RequestBody Estado estado) {
+        return estadoService.atualizar(estado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> excluirEstado(@PathVariable Long id) {
+    public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
             estadoService.excluir(id);
-            return ResponseEntity.ok("Estado excluído com sucesso");
+            return ResponseEntity.ok("Estado excluido com sucesso.");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
     @GetMapping("/{id}")
-    public ResponseEntity<Estado> buscarPorId(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(estadoService.buscarPorId(id));
+    public ResponseEntity<Object> BuscarPorId (@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(estadoService.BuscarPorId(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("não foi possivel encontrar o estado");
+        }
     }
 }

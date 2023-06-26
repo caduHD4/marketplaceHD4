@@ -60,15 +60,15 @@ public class CidadeController {
         if (!file.isEmpty()) {
             try {
                 cidadeService.salvarCSV(file);
-                message = "Uploaded the file successfully: " + file.getOriginalFilename();
+                message = "sucesso no upload" + file.getOriginalFilename();
                 return ResponseEntity.status(HttpStatus.OK).body("teste");
             } catch (Exception e) {
-                message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+                message = "não foi possivel fazer o upload" + file.getOriginalFilename() + "!";
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("teste");
             }
         }
 
-        message = "Please upload a csv file!";
+        message = "Porfavor faça o upload do CSV!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("teste");
     }
 

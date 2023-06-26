@@ -21,7 +21,7 @@ import com.lojinha.entity.Pessoa;
 import com.lojinha.service.PessoaService;
 
 @RestController
-@RequestMapping("/pessoa")
+@RequestMapping("/api/pessoa")
 @CrossOrigin
 public class PessoaController {
 
@@ -29,35 +29,35 @@ public class PessoaController {
     private PessoaService pessoaServico;
 
     @GetMapping("/")
-    public List<Pessoa> findAll() {
-        return pessoaServico.findAll();
+    public List<Pessoa> buscarTodos() {
+        return pessoaServico.buscarTodos();
     }
 
     @PostMapping("/")
-    public Pessoa insert(@RequestBody Pessoa pessoa) {
-        return pessoaServico.insert(pessoa);
+    public Pessoa cadastrar(@RequestBody Pessoa pessoa) {
+        return pessoaServico.cadastrar(pessoa);
     }
 
     @PutMapping("/")
-    public Pessoa update(@RequestBody Pessoa pessoa) {
-        return pessoaServico.update(pessoa);
+    public Pessoa atualizar(@RequestBody Pessoa pessoa) {
+        return pessoaServico.atualizar(pessoa);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
+    public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
-            pessoaServico.delete(id);
-            return ResponseEntity.ok("Pessoa successfully deleted.");
+            pessoaServico.excluir(id);
+            return ResponseEntity.ok("Pessoa deletada com sucesso.");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> buscarPorId(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(pessoaServico.findById(id));
+            return ResponseEntity.ok(pessoaServico.buscarPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unable to find the pessoa.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possivel encontrar pessoa.");
         }
     }
 }

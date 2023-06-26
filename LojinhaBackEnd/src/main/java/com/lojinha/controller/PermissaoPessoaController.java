@@ -29,35 +29,35 @@ public class PermissaoPessoaController {
     private PermissaoPessoaService permissaoPessoaService;
 
     @GetMapping("/")
-    public List<PermissaoPessoa> findAll() {
-        return permissaoPessoaService.findAll();
+    public List<PermissaoPessoa> buscarTodos() {
+        return permissaoPessoaService.buscarTodos();
     }
 
     @PostMapping("/")
-    public PermissaoPessoa insert(@RequestBody PermissaoPessoa permissaoPessoa) {
-        return permissaoPessoaService.insert(permissaoPessoa);
+    public PermissaoPessoa cadastar(@RequestBody PermissaoPessoa permissaoPessoa) {
+        return permissaoPessoaService.cadastrar(permissaoPessoa);
     }
 
     @PutMapping("/")
-    public PermissaoPessoa update(@RequestBody PermissaoPessoa permissaoPessoa) {
-        return permissaoPessoaService.update(permissaoPessoa);
+    public PermissaoPessoa atualizar(@RequestBody PermissaoPessoa permissaoPessoa) {
+        return permissaoPessoaService.atualizar(permissaoPessoa);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
+    public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
-            permissaoPessoaService.delete(id);
-            return ResponseEntity.ok("PermissaoPessoa successfully deleted.");
+            permissaoPessoaService.excluir(id);
+            return ResponseEntity.ok("PermissaoPessoa deletado com sucesso.");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> buscarPorId(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(permissaoPessoaService.findById(id));
+            return ResponseEntity.ok(permissaoPessoaService.buscarPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unable to find the permissaoPessoa.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("não foi possivel encontrar permissaoPessoa.");
         }
     }
 }

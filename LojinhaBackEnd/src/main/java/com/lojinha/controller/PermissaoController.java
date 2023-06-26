@@ -21,7 +21,7 @@ import com.lojinha.entity.Permissao;
 import com.lojinha.service.PermissaoService;
 
 @RestController
-@RequestMapping("/permissao")
+@RequestMapping("/api/permissao")
 @CrossOrigin
 public class PermissaoController {
 
@@ -29,35 +29,35 @@ public class PermissaoController {
     private PermissaoService permissaoService;
 
     @GetMapping("/")
-    public List<Permissao> findAll() {
-        return permissaoService.findAll();
+    public List<Permissao> buscarTodos() {
+        return permissaoService.buscarTodos();
     }
 
     @PostMapping("/")
-    public Permissao insert(@RequestBody Permissao permissao) {
-        return permissaoService.insert(permissao);
+    public Permissao cadastrar(@RequestBody Permissao permissao) {
+        return permissaoService.cadastrar(permissao);
     }
 
     @PutMapping("/")
-    public Permissao update(@RequestBody Permissao permissao) {
-        return permissaoService.update(permissao);
+    public Permissao atualizar(@RequestBody Permissao permissao) {
+        return permissaoService.atualizar(permissao);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
+    public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
-            permissaoService.delete(id);
-            return ResponseEntity.ok("Permissao successfully deleted.");
+            permissaoService.excluir(id);
+            return ResponseEntity.ok("Permissao deletada com sucesso.");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> BuscarPorId(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(permissaoService.findById(id));
+            return ResponseEntity.ok(permissaoService.BuscarPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unable to find the permissao.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possivel encontrar permissao.");
         }
     }
 }
