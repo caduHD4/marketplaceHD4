@@ -59,7 +59,7 @@ public class CidadeController {
 
         if (!file.isEmpty()) {
             try {
-                cidadeService.saveCSV(file);
+                cidadeService.salvarCSV(file);
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
                 return ResponseEntity.status(HttpStatus.OK).body("teste");
             } catch (Exception e) {
