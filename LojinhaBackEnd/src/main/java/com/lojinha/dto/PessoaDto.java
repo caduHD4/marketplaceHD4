@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class PessoaDto {
-    private Long id;
-    private String nome;
-    private String CPF;
-    private String email;
-    private String senha;
-    private String endereco;
-    private String CEP;
+    Long id;
+    String nome;
+    String CPF;
+    String email;
+    String senha;
+    String endereco;
+    String CEP;
 }

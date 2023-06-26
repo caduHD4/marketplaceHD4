@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class EstadoDto {
-    private Long id;
-    private String nome;
-    private String sigla;
+    Long id;
+    String nome;
+    String sigla;
 }

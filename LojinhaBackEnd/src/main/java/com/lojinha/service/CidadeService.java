@@ -33,8 +33,8 @@ public class CidadeService {
     private CidadeRepository cidadeRepository;
     private static EstadoService estadoService;
 
-    public List<Cidade> buscarTodos() {
-        return cidadeRepository.BuscarTodos();
+    public List<Cidade> buscarPorId() {
+        return cidadeRepository.findAll();
     }
 
     public Cidade buscarPorId(Long id) {
@@ -53,7 +53,7 @@ public class CidadeService {
     }
 
     public void excluir(Long id) {
-        Cidade cidade = cidadeRepository.buscarPorId(id)
+        Cidade cidade = cidadeRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Cidade não encontrada."));
         cidadeRepository.delete(cidade);
 
