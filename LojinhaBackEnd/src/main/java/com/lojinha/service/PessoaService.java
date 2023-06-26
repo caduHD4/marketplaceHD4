@@ -25,13 +25,13 @@ public class PessoaService {
     }
 
     public Pessoa insert(Pessoa pessoa) {
-        pessoa.setCreationDate(new Date());
+        pessoa.setDataCriacao(new Date());
         Pessoa newPessoa = pessoaRepository.saveAndFlush(pessoa);
         return newPessoa;
     }
 
     public Pessoa update(Pessoa pessoa) {
-        pessoa.setUpdateDate(new Date());
+        pessoa.setDataAtualizacao(new Date());
         return pessoaRepository.saveAndFlush(pessoa);
     }
 

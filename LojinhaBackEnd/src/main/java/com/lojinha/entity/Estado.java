@@ -2,27 +2,20 @@ package com.lojinha.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.Date;
 
 @Entity
+@Table(name = "estado")
 @Data
 public class Estado {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
-
-    @Column()
     private String nome;
-
-    @Column()
     private String sigla;
-
-    @Column()
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
-
-    @Column()
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataAtualizacao;
 }

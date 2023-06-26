@@ -10,30 +10,13 @@ import java.util.Date;
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column()
     private String nome;
-
-    @Column()
     private String CPF;
-
-    @Column()
     private String email;
-
-    @Column()
     private String senha;
-
-    @Column()
     private String endereco;
-
-    @Column()
     private String CEP;
-
-    @Column()
     private Date dataCriacao;
-
-    @Column()
     private Date dataAtualizacao;
 }

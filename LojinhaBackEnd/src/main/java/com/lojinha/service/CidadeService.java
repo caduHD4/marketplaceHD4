@@ -42,13 +42,13 @@ public class CidadeService {
     }
 
     public Cidade cadastrar(Cidade cidade) {
-        cidade.setCreationDate(new Date());
+        cidade.setDataCriacao(new Date());
         Cidade newCidade = cidadeRepository.saveAndFlush(cidade);
         return newCidade;
     }
 
     public Cidade atualizar(Cidade cidade) {
-        cidade.setUpdateDate(new Date());
+        cidade.setDataAtualizacao(new Date());
         return cidadeRepository.saveAndFlush(cidade);
     }
 

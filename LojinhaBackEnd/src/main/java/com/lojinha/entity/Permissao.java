@@ -5,20 +5,14 @@ import lombok.Data;
 import java.util.Date;
 
 @Entity
+@Table(name = "permissao")
 @Data
 
 public class Permissao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column()
     private String nome;
-
-    @Column()
     private Date dataCriacao;
-
-    @Column()
     private Date dataAtualizacao;
 }

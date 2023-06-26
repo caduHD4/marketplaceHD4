@@ -25,13 +25,13 @@ public class PermissaoPessoaService {
     }
 
     public PermissaoPessoa insert(PermissaoPessoa permissaoPessoa) {
-        permissaoPessoa.setCreationDate(new Date());
+        permissaoPessoa.setDataCriacao(new Date());
         PermissaoPessoa newPermissaoPessoa = permissaoPessoaRepository.saveAndFlush(permissaoPessoa);
         return newPermissaoPessoa;
     }
 
     public PermissaoPessoa update(PermissaoPessoa permissaoPessoa) {
-        permissaoPessoa.setUpdateDate(new Date());
+        permissaoPessoa.setDataAtualizacao(new Date());
         return permissaoPessoaRepository.saveAndFlush(permissaoPessoa);
     }
 

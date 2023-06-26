@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Entity
+@Table(name = "cidade")
 @Data
 public class Cidade {
 
@@ -18,10 +19,10 @@ public class Cidade {
     private String nome;
 
     @Column()
-    private Date dataCriacao;
+    private Date dataCriacao = new Date();
 
     @Column()
-    private Date dataAtualizacao;
+    private Date dataAtualizacao = new Date();
 
     @ManyToOne(optional = false)
     private Estado estado;

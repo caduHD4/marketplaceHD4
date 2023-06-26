@@ -25,13 +25,13 @@ public class EstadoService {
     }
 
     public Estado insert(Estado estado) {
-        estado.setCreationDate(new Date());
+        estado.setDataCriacao(new Date());
         Estado newEstado = estadoRepository.saveAndFlush(estado);
         return newEstado;
     }
 
     public Estado update(Estado estado) {
-        estado.setUpdateDate(new Date());
+        estado.setDataAtualizacao(new Date());
         return estadoRepository.saveAndFlush(estado);
     }
 
