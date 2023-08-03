@@ -3,6 +3,8 @@ package com.lojinha.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.lojinha.entity.Cidade;
 import com.lojinha.service.CidadeService;
 
-import jakarta.validation.Valid;
+
 
 import org.springframework.web.multipart.MultipartFile;
 

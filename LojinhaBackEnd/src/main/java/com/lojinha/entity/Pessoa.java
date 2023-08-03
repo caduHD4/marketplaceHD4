@@ -1,9 +1,10 @@
 package com.lojinha.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import javax.persistence.*;
+import javax.validation.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.Date;

@@ -3,7 +3,6 @@ package com.lojinha.controller;
 import com.lojinha.entity.Estado;
 import com.lojinha.service.EstadoService;
 
-import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/estado")
