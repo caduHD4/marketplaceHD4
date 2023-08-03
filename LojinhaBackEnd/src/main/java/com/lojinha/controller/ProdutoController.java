@@ -18,37 +18,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lojinha.entity.Marca;
-import com.lojinha.service.MarcaService;
+import com.lojinha.entity.Produto;
+import com.lojinha.service.ProdutoService;
 
 @RestController
-@RequestMapping("/api/marca")
+@RequestMapping("/api/produto")
 @CrossOrigin
-public class MarcaController {
+public class ProdutoController {
 
     @Autowired
-    private MarcaService marcaService;
+    private ProdutoService produtoService;
 
     @GetMapping("/")
-    public List<Marca> buscarTodos() {
-        return marcaService.buscarTodos();
+    public List<Produto> buscarTodos() {
+        return produtoService.buscarTodos();
     }
 
     @PostMapping("/")
-    public Marca cadastrar(@Valid @RequestBody Marca marca) {
-        return marcaService.cadastrar(marca);
+    public Produto cadastrar(@Valid @RequestBody Produto produto) {
+        return produtoService.cadastrar(produto);
     }
 
     @PutMapping("/")
-    public Marca atualizar(@Valid @RequestBody Marca marca) {
-        return marcaService.atualizar(marca);
+    public Produto atualizar(@Valid @RequestBody Produto produto) {
+        return produtoService.atualizar(produto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
-            marcaService.excluir(id);
-            return ResponseEntity.ok("Marca deletada com sucesso.");
+            produtoService.excluir(id);
+            return ResponseEntity.ok("Produto deletado com sucesso.");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
@@ -57,9 +57,9 @@ public class MarcaController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> buscarPorId(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(marcaService.buscarPorId(id));
+            return ResponseEntity.ok(produtoService.buscarPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível encontrar a marca.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível encontrar o produto.");
         }
     }
 }

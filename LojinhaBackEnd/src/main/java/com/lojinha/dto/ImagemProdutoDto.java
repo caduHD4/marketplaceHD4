@@ -7,7 +7,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MarcaDto {
+public class ImagemProdutoDto {
+
     private Long id;
     private String nome;
+
+    public ImagemProdutoDto(Long id, String nome, byte[] imagem) {
+        this.id = id;
+        this.nome = nome;
+    }
 }

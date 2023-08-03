@@ -18,37 +18,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lojinha.entity.Marca;
-import com.lojinha.service.MarcaService;
+import com.lojinha.entity.ProdutoCarrinho;
+import com.lojinha.service.ProdutoCarrinhoService;
 
 @RestController
-@RequestMapping("/api/marca")
+@RequestMapping("/api/produtocarrinho")
 @CrossOrigin
-public class MarcaController {
+public class ProdutoCarrinhoController {
 
     @Autowired
-    private MarcaService marcaService;
+    private ProdutoCarrinhoService produtoCarrinhoService;
 
     @GetMapping("/")
-    public List<Marca> buscarTodos() {
-        return marcaService.buscarTodos();
+    public List<ProdutoCarrinho> buscarTodos() {
+        return produtoCarrinhoService.buscarTodos();
     }
 
     @PostMapping("/")
-    public Marca cadastrar(@Valid @RequestBody Marca marca) {
-        return marcaService.cadastrar(marca);
+    public ProdutoCarrinho cadastrar(@Valid @RequestBody ProdutoCarrinho produtoCarrinho) {
+        return produtoCarrinhoService.cadastrar(produtoCarrinho);
     }
 
     @PutMapping("/")
-    public Marca atualizar(@Valid @RequestBody Marca marca) {
-        return marcaService.atualizar(marca);
+    public ProdutoCarrinho atualizar(@Valid @RequestBody ProdutoCarrinho produtoCarrinho) {
+        return produtoCarrinhoService.atualizar(produtoCarrinho);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
-            marcaService.excluir(id);
-            return ResponseEntity.ok("Marca deletada com sucesso.");
+            produtoCarrinhoService.excluir(id);
+            return ResponseEntity.ok("ProdutoCarrinho deletado com sucesso.");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
@@ -57,9 +57,9 @@ public class MarcaController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> buscarPorId(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(marcaService.buscarPorId(id));
+            return ResponseEntity.ok(produtoCarrinhoService.buscarPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível encontrar a marca.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível encontrar o produto no carrinho.");
         }
     }
 }

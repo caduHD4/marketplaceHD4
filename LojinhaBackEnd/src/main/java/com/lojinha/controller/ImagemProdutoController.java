@@ -18,37 +18,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lojinha.entity.Marca;
-import com.lojinha.service.MarcaService;
+import com.lojinha.entity.ImagemProduto;
+import com.lojinha.service.ImagemProdutoService;
 
 @RestController
-@RequestMapping("/api/marca")
+@RequestMapping("/api/imagemproduto")
 @CrossOrigin
-public class MarcaController {
+public class ImagemProdutoController {
 
     @Autowired
-    private MarcaService marcaService;
+    private ImagemProdutoService imagemProdutoService;
 
     @GetMapping("/")
-    public List<Marca> buscarTodos() {
-        return marcaService.buscarTodos();
+    public List<ImagemProduto> buscarTodos() {
+        return imagemProdutoService.buscarTodos();
     }
 
     @PostMapping("/")
-    public Marca cadastrar(@Valid @RequestBody Marca marca) {
-        return marcaService.cadastrar(marca);
+    public ImagemProduto cadastrar(@Valid @RequestBody ImagemProduto imagemProduto) {
+        return imagemProdutoService.cadastrar(imagemProduto);
     }
 
     @PutMapping("/")
-    public Marca atualizar(@Valid @RequestBody Marca marca) {
-        return marcaService.atualizar(marca);
+    public ImagemProduto atualizar(@Valid @RequestBody ImagemProduto imagemProduto) {
+        return imagemProdutoService.atualizar(imagemProduto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
-            marcaService.excluir(id);
-            return ResponseEntity.ok("Marca deletada com sucesso.");
+            imagemProdutoService.excluir(id);
+            return ResponseEntity.ok("ImagemProduto deletada com sucesso.");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
@@ -57,9 +57,9 @@ public class MarcaController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> buscarPorId(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(marcaService.buscarPorId(id));
+            return ResponseEntity.ok(imagemProdutoService.buscarPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível encontrar a marca.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível encontrar a imagem do produto.");
         }
     }
 }
