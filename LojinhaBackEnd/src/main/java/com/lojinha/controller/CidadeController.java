@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.lojinha.entity.Cidade;
 import com.lojinha.service.CidadeService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -26,12 +29,12 @@ public class CidadeController {
     }
 
     @PostMapping("/")
-    public Cidade cadastrar(@RequestBody Cidade cidade) {
+    public Cidade cadastrar(@Valid @RequestBody Cidade cidade) {
         return cidadeService.cadastrar(cidade);
     }
 
     @PutMapping("/")
-    public Cidade atualizar(@RequestBody Cidade cidade) {
+    public Cidade atualizar(@Valid @RequestBody Cidade cidade) {
         return cidadeService.atualizar(cidade);
     }
 

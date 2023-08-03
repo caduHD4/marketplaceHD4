@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lojinha.entity.Pessoa;
 import com.lojinha.service.PessoaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/pessoa")
 @CrossOrigin
@@ -34,12 +36,12 @@ public class PessoaController {
     }
 
     @PostMapping("/")
-    public Pessoa cadastrar(@RequestBody Pessoa pessoa) {
+    public Pessoa cadastrar(@Valid @RequestBody Pessoa pessoa) {
         return pessoaServico.cadastrar(pessoa);
     }
 
     @PutMapping("/")
-    public Pessoa atualizar(@RequestBody Pessoa pessoa) {
+    public Pessoa atualizar(@Valid @RequestBody Pessoa pessoa) {
         return pessoaServico.atualizar(pessoa);
     }
 

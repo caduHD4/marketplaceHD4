@@ -3,6 +3,8 @@ package com.lojinha.controller;
 import com.lojinha.entity.Estado;
 import com.lojinha.service.EstadoService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +35,12 @@ public class EstadoController {
     }
 
     @PostMapping("/")
-    public Estado cadastrar(@RequestBody Estado estado) {
+    public Estado cadastrar(@Valid @RequestBody Estado estado) {
         return estadoService.cadastrar(estado);
     }
 
     @PutMapping("/")
-    public Estado atualizar(@RequestBody Estado estado) {
+    public Estado atualizar(@Valid @RequestBody Estado estado) {
         return estadoService.atualizar(estado);
     }
 

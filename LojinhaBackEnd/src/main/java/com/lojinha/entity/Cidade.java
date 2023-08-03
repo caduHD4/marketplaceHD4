@@ -1,6 +1,7 @@
 package com.lojinha.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public class Cidade {
     private Long id;
 
     @Column()
+    @NotNull(message = "O nome é obrigatório.")
     private String nome;
 
     @Column()
